@@ -4,6 +4,17 @@
 #include "fapMult.h"
 #include "arbrebinMult.h"
 
+int memoireConso = 0;
+
+void *mymalloc(int a) {
+    memoireConso += a;
+    return malloc(a);
+}
+
+#define malloc(a) mymalloc(a)
+
+
+
 struct code_char {
     char *str;
     double prob;
@@ -202,7 +213,8 @@ int main (int argc, char **argv) {
     // AfficherCode();
 
     printf("Calcul de la longueur moyenne : ...\n");
-    printf("\nLongueur moyenne : %.3lf\n",longueurMoyenne(tailleEv));
+    printf("\nLongueur moyenne : %.4lf\n",longueurMoyenne(tailleEv));
+    printf("Memoire consomme : %d\n",memoireConso);
 
     /* Encodage */
     // fichier = fopen(argv[1], "r");
