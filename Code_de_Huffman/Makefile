@@ -1,4 +1,4 @@
-all: huffman
+all: huffman huffmanMult
 
 GCC_OPT= -Wall
 
@@ -14,5 +14,17 @@ huffman.o: huffman.c fap.h arbrebin.h
 huffman: huffman.o fap.o arbrebin.o
 	gcc -lm -o huffman huffman.o fap.o arbrebin.o
 
+arbrebinMult.o: arbrebinMult.c
+	gcc -Wall -c -o arbrebinMult.o arbrebinMult.c
+
+fapMult.o: fapMult.c arbrebinMult.h
+	gcc -Wall -c -o fapMult.o fapMult.c
+
+huffmanMult.o: huffmanMult.c fapMult.h arbrebinMult.h
+	gcc -Wall -c -o huffmanMult.o huffmanMult.c
+
+huffmanMult: huffmanMult.o fapMult.o arbrebinMult.o
+	gcc -lm -o huffmanMult huffmanMult.o fapMult.o arbrebinMult.o
+
 clean:
-	rm -f *.o huffman
+	rm -f *.o huffman huffmanMult
